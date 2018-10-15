@@ -168,7 +168,7 @@ def create_df_of_scanner_data(ctid):
             print(e)
             
             
-        data['name'] = feed
+        data['name'] = feed.replace("\n"," ").replace("|"," ").replace(","," ")
         data['url'] = urls[feed]
         data['collection_time'] = collection_time
         print()
