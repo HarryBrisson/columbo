@@ -194,5 +194,7 @@ def surf_scanners(county):
 	while True:
 		data = create_df_of_scanner_data(str(ctid))
 		store_data_as_csv(data,county)
+		print()
+		print()
 
 
