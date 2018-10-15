@@ -51,7 +51,7 @@ def get_all_live_webplayer_urls_for_county_id(ctid):
 
 		try:
 
-			feed_name = cells[1].getText().replace("\n","  ").replace(",","").replace("|"," ")
+			feed_name = cells[1].find("a").getText().replace("\n","  ").replace(",","").replace("|"," ")
 
 			dispatch_check = "dispatch" in feed_name.lower()
 			pd_check = "pd" in feed_name.lower()
@@ -171,6 +171,7 @@ def create_df_of_scanner_data(ctid):
         data['name'] = feed.replace("\n"," ").replace("|"," ").replace(","," ")
         data['url'] = urls[feed]
         data['collection_time'] = collection_time
+
         print()
 
         try:
