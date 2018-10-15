@@ -4,6 +4,7 @@ authorizations/*.json
 # audio files
 temp-audio/*.mp3
 temp-audio/*.wav
+temp-audio/*.flac
 
 # misc
 *.ipynb
