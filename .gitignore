@@ -1,0 +1,4 @@
+*.DS_Store
+authorizations/*.json
+*.ipynb
+*.pyc
