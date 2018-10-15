@@ -20,7 +20,7 @@ def store_data_as_csv(data,source):
 
 	filename = "temp.csv"
 
-	now = datetime.now()
+	now = datetime.utcnow()
 	s3_destination = get_path_from_source_and_time(source,now)
 
 	data.to_csv(r"temp-data/"+filename,sep="|")
