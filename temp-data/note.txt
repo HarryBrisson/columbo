@@ -1,0 +1,1 @@
+this folder is used to store csvs temporarily before they are uploaded to s3
