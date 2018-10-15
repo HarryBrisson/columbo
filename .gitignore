@@ -1,4 +1,11 @@
-*.DS_Store
+# keys
 authorizations/*.json
+
+# audio files
+temp-audio/*.mp3
+temp-audio/*.wav
+
+# misc
 *.ipynb
 *.pyc
+*.DS_Store
