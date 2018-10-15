@@ -15,6 +15,8 @@ For county public health officials, knowing when abnormally high rates of overdo
 
 `bash initialize.sh`
 
+This particular version requires an aws-api to store data in a `columbo-scanner-data` bucket.
+
 `python3`
 
 `from scan import *`
