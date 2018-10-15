@@ -1,5 +1,5 @@
 # columbo
-automated police scanner audio collection, analysis and presentation to empower community leaders
+*automated police scanner audio collection, analysis and presentation to empower community leaders*
 
 created for [The Opioid Hackathon 2018](https://www.theopioidhackathon.com/)
 
