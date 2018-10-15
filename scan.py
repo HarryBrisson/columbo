@@ -204,10 +204,14 @@ def surf_scanners(state=None,county=None):
 	else:
 		while True:
 			for state in ctid_ref.keys():
-				for county in ctid_ref[state].keys():
-					ctid = ctid_ref[state][county]
-					data = create_df_of_scanner_data(str(ctid))
-					store_data_as_csv(data,state+"/"+county)   
+				try:
+					for county in ctid_ref[state].keys():
+						ctid = ctid_ref[state][county]
+						data = create_df_of_scanner_data(str(ctid))
+						store_data_as_csv(data,state+"/"+county) 
+				except:
+					# virgin islands doesn't have scanner stations
+					pass  
 					
 
 if __name__ == "__main__":
