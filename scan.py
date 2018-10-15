@@ -190,6 +190,31 @@ def get_ctid_ref():
 	return ctid_ref
 
 
+def get_randomized_list_of_all_ctids():
+
+	detailed_counties = []
+	ctid_ref = get_ctid_ref()
+
+	for state in ctid_ref.keys():
+		try:
+			for county in ctid_ref[state].keys():
+				ctid = ctid_ref[state][county]
+				county_details = {
+					'state':state,
+					'county':county,
+					'ctid':ctid
+				}
+				detailed_counties += [county_details]
+		except:
+			pass
+
+	random.shuffle(detailed_counties)
+
+	return detailed_counties
+
+
+
+
 def surf_scanners(state=None,county=None):
 
 	ctid_ref = get_ctid_ref()
@@ -203,15 +228,12 @@ def surf_scanners(state=None,county=None):
 			print()
 	else:
 		while True:
-			for state in ctid_ref.keys():
-				try:
-					for county in ctid_ref[state].keys():
-						ctid = ctid_ref[state][county]
-						data = create_df_of_scanner_data(str(ctid))
-						store_data_as_csv(data,state+"/"+county) 
-				except:
-					# virgin islands doesn't have scanner stations
-					pass  
+			for county_details in get_randomized_list_of_all_ctids():
+					ctid = county_details['ctid']
+					state = county_details['state']
+					county = county_details['county']
+					data = create_df_of_scanner_data(str(ctid))
+					store_data_as_csv(data,state+"/"+county)  
 					
 
 if __name__ == "__main__":
