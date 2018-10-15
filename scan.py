@@ -150,39 +150,39 @@ def collect_and_process_scanner_audio(live_url):
 
 
 def create_df_of_scanner_data(ctid):
-    
-    urls = get_live_urls_from_ctid(ctid)
-    
-    d = pd.DataFrame()
-    
-    for feed in urls.keys():
-        print("trying to add info for {}".format(feed))
-        collection_time = datetime.utcnow()
+	
+	urls = get_live_urls_from_ctid(ctid)
+	
+	d = pd.DataFrame()
+	
+	for feed in urls.keys():
+		print("trying to add info for {}".format(feed))
+		collection_time = datetime.utcnow()
 
-        try:
-            data = collect_and_process_scanner_audio(urls[feed])
-            print("successfully collected")
-            
-        except Exception as e:
-            data = {}
-            print("unable to collect")
-            print(e)
-            
-            
-        data['name'] = feed.replace("\n"," ").replace("|"," ").replace(","," ")
-        data['url'] = urls[feed]
-        data['collection_time'] = collection_time
+		try:
+			data = collect_and_process_scanner_audio(urls[feed])
+			print("successfully collected")
+			
+		except Exception as e:
+			data = {}
+			print("unable to collect")
+			print(e)
+			
+			
+		data['name'] = feed.replace("\n"," ").replace("|"," ").replace(","," ")
+		data['url'] = urls[feed]
+		data['collection_time'] = collection_time
 
-        print()
+		print()
 
-        try:
-            d = d.append(data,ignore_index=True)
-            
-        except:
-            print("could not append")
+		try:
+			d = d.append(data,ignore_index=True)
+			
+		except:
+			print("could not append")
 
-        
-    return d
+		
+	return d
 
 def get_ctid_ref():
 	with open("reference-data/ctids_by_name.json") as f:
@@ -202,14 +202,14 @@ def surf_scanners(state=None,county=None):
 			print()
 			print()
 	else:
-	    while True:
-	    	for state in ctid_ref.keys():
-		    	for county in ctid[state].keys():
-		    		ctid = ctid_ref[state][county]
+		while True:
+			for state in ctid_ref.keys():
+				for county in ctid[state].keys():
+					ctid = ctid_ref[state][county]
 					data = create_df_of_scanner_data(str(ctid))
 					store_data_as_csv(data,county)   
 					
 
 if __name__ == "__main__":
-    update_ctid_json_file()
-    surf_scanners()  		
+	update_ctid_json_file()
+	surf_scanners()  		
