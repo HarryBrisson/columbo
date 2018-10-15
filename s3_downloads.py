@@ -41,6 +41,9 @@ def get_scanner_data_as_dataframe():
 	for k in keys:
 		try:
 			temp = pd.read_csv(s3.Object('columbo-scanner-data',k).get()['Body'],sep="|",encoding="latin1")
+			if len(k.split('/'))==6:
+				temp['state'] = k.split('/')[0]
+				temp['county'] = k.split('/')[1]
 			print("successfully downloaded {}".format(k))
 			d = d.append(temp, ignore_index=True)
 		except Exception as e:
