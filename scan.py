@@ -14,6 +14,7 @@ import speech_recognition as sr
 import pandas as pd
 
 from s3_uploads import *
+from update_reference_data import *
 
 
 def get_aws_credentials():
@@ -189,13 +190,26 @@ def get_ctid_ref():
 	return ctid_ref
 
 
-def surf_scanners(county):
+def surf_scanners(state=None,county=None):
+
 	ctid_ref = get_ctid_ref()
-	ctid = ctid_ref[county]
-	while True:
-		data = create_df_of_scanner_data(str(ctid))
-		store_data_as_csv(data,county)
-		print()
-		print()
 
+	if state and county:
+		ctid = ctid_ref[state][county]
+		while True:
+			data = create_df_of_scanner_data(str(ctid))
+			store_data_as_csv(data,county)
+			print()
+			print()
+	else:
+	    while True:
+	    	for state in ctid_ref.keys():
+		    	for county in ctid[state].keys():
+		    		ctid = ctid_ref[state][county]
+					data = create_df_of_scanner_data(str(ctid))
+					store_data_as_csv(data,county)   
+					
 
+if __name__ == "__main__":
+    update_ctid_json_file()
+    surf_scanners()  		
