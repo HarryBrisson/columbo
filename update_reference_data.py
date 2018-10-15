@@ -30,7 +30,7 @@ def get_county_id_numbers_for_state(stid):
         try:
             ctid = row.find_all("td")[0].find("a")['href'].split("/")[-1]
             name = row.find_all("td")[0].find("a").getText()
-            ctids[name] = ctid
+            ctids[name.replace(" ","-").replace(".","")] = ctid
         except:
             pass
     return ctids
