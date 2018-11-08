@@ -222,18 +222,24 @@ def surf_scanners(state=None,county=None):
 	if state and county:
 		ctid = ctid_ref[state][county]
 		while True:
-			data = create_df_of_scanner_data(str(ctid))
-			store_data_as_csv(data,state+"--"+county)
-			print()
-			print()
+			try:
+				data = create_df_of_scanner_data(str(ctid))
+				store_data_as_csv(data,state+"--"+county)
+			except:
+				print('trouble scanning, trying again')
+
+
 	else:
 		while True:
 			for county_details in get_randomized_list_of_all_ctids():
 					ctid = county_details['ctid']
 					state = county_details['state']
 					county = county_details['county']
-					data = create_df_of_scanner_data(str(ctid))
-					store_data_as_csv(data,state+"/"+county)  
+					try:
+						data = create_df_of_scanner_data(str(ctid))
+						store_data_as_csv(data,state+"/"+county)  
+					except:
+						print('trouble scanning {} {}'.format(county,state))
 					
 
 if __name__ == "__main__":
