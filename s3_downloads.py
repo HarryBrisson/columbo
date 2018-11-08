@@ -35,7 +35,7 @@ def get_list_of_s3_object_keys():
 	return keys
 
 
-def get_scanner_data_as_dataframe():
+def get_scanner_data_as_dataframe(state=None,county=None):
 
 	# access credentials folder
 	with open('authorizations/aws-credentials.json') as f:
@@ -49,6 +49,14 @@ def get_scanner_data_as_dataframe():
 		)
 
 	keys = get_list_of_s3_object_keys()
+
+	if state and county:
+		keys = [k for k in keys if k.split('/')[:2] == [state.title(),county.title()]]
+		print("looking for {} data in {}".format(state,county))
+
+	elif state:
+		keys = [k for k in keys if k.split('/')[0] == state.title()]
+		print("looking for {} dataframes".format(state))
 
 	d = pd.DataFrame()
 
@@ -65,4 +73,5 @@ def get_scanner_data_as_dataframe():
 			print(e)
 
 	return d
+
 
